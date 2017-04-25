@@ -19,12 +19,16 @@
              * 对用户输入的意图名称：限制级以外的字符不让输入；小写字母自动转化为大写
              * */
             $scope.normalizeIntentName=function ($event) {
+                //为了兼容性，火狐下没有keyCode,
+                $event.keyCode=$event.keyCode || $event.charCode;
+                //$event.keyCode=$event.keyCode || $event.which;
                 var char=String.fromCharCode($event.keyCode);
                 if (/[a-zA-Z0-9_]/.test(char)) {
                     console.log($('#intent_name').val());
                     var chars=$('#intent_name').val();
                     var newchars=chars.slice(0,chars.length)+char.toUpperCase();
                     $('#intent_name').val(newchars);
+                    console.log($('#intent_name').val());
                 }
                 $event.preventDefault();
             };
